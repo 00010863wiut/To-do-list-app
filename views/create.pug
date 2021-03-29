@@ -1,0 +1,17 @@
+extends layout.pug 
+
+block content 
+    .containerForm
+        h1 Create task 
+        
+        form.form(action="/create" method="POST")
+            label Title
+            input.input(type="text" name="title")
+
+            label Due date
+            input.input(type="datetime-local" name="datetime")
+
+            label Description 
+            textarea.input(type="text" name="description", cols="30", rows="10") 
+
+            button.btn Create a task

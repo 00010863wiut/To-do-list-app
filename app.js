@@ -10,6 +10,10 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('/create', (req, res) => {
+    res.render('create')
+})
+
 app.listen(8080, err => {
     if (err) console.log(err)
 

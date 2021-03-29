@@ -19,16 +19,15 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 2px grey; 
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #2cb67d; 
+  box-shadow: inset 0 0 2px grey;
   border-radius: 10px;
 }
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2cb67d;
+  border-radius: 10px;
+}
 
 /* Navigation style */
 .navbar {
@@ -85,11 +84,11 @@ a {
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 45vw;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45vw;
+  text-align: center;
 }
 
 .container h1 {
@@ -122,5 +121,59 @@ a {
 }
 
 .container_img img {
-   width: 40vw;
+  width: 40vw;
+}
+
+/* create page style*/
+
+.containerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5vw;
+}
+
+.containerForm h1 {
+  font-size: 2.2vw;
+  color: #2cb67d;
+  margin-bottom: 4rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  color: #fffffe;
+}
+
+.input {
+  display: block;
+  padding: 10px;
+  font-size: 1.3rem;
+  font-family: inherit;
+  background-color: #242629;
+  border: 1px solid #2cb67d;
+  border-radius: 14px;
+  color: #2cb67d;
+  margin-bottom: 2rem;
+}
+
+.form label {
+  margin-bottom: 1rem;
+  font-size: 20px;
+}
+
+.btn {
+  display: inline-block;
+  color: #fffffe;
+  margin: 2vw;
+  background-color: #7f5af0;
+  padding: 1vw 7vw;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: inherit;
+  border: 1px solid #7f5af0;
 }
