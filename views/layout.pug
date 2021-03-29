@@ -2,13 +2,15 @@ doctype html
 html(lang="en")
     head
         title Tick
+        link(rel="stylesheet", href="/static/styles.css")
 
     body
         header.navbar 
-            h1  
-                a(href="/") To do list app 
+            .logo
                 a(href="/") 
                     img(src='static/images/logo.png')
+                h1  
+                    a(href="/") Tick 
 
             nav.nav 
                 a(href="/tasks")  All tasks

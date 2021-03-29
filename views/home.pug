@@ -1,6 +1,9 @@
 extends layout.pug 
 
 block content 
-    .container 
-        h1 This app allows users to create, archive, delete and update tasks.
-        a(href="/create")  Create task
+    .container_main
+        .container 
+            h1 This app allows users to create, archive, delete and update tasks.
+            a(href="/create")  Create task
+        .container_img 
+            img(src='static/images/glass.png')
