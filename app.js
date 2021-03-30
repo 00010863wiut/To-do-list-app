@@ -57,6 +57,12 @@ app.post('/create', (req, res) => {
     });
 })
 
+const tasks = ['task', 'task2', 'task3']
+
+app.get('/tasks', (req, res) =>{
+    res.render('tasks', { tasks: tasks })
+})
+
 app.listen(8000, err => {
     if (err) console.log(err)
 

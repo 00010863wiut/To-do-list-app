@@ -185,3 +185,7 @@ a {
 .success {
   color: #2cb67d; 
 }
+
+input[type=checkbox]:checked + a.task{
+  text-decoration: line-through;
+}
