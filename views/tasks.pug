@@ -1,11 +1,15 @@
 extends layout 
 
 block content 
-    .containerForm
+    .containerAllTasks
         h1 All tasks 
 
         each task in tasks 
-            .task-wrapper
-            input.checkbox(type="checkbox" value="1" name="checkbox")
-            a.task(href='#')= task
-            a.delete(href='#') Delete
+            .task_wrapper
+                .taskTitle
+                    input.checkbox(type="checkbox" value="1" name="checkbox")
+                    a.task(href='#')= task
+                a.delete(href='#') Delete
+    .circle 
+    .circleSecond
+    .circleThird
