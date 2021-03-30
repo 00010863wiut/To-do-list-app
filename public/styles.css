@@ -177,3 +177,11 @@ a {
   background-color: inherit;
   border: 1px solid #7f5af0;
 }
+
+.error {
+  color: rgb(243, 70, 70);
+}
+
+.success {
+  color: #2cb67d; 
+}

@@ -3,6 +3,12 @@ extends layout.pug
 block content 
     .containerForm
         h1 Create task 
+
+        if error
+            p.error #{error}
+
+        if success
+            p.success Task is added successfully!
         
         form.form(action="/create" method="POST")
             label Title
