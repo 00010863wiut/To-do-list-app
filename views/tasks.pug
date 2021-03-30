@@ -8,8 +8,10 @@ block content
             .task_wrapper
                 .taskTitle
                     input.checkbox(type="checkbox" value="1" name="checkbox")
-                    a.task(href='#')= task
-                a.delete(href='#') Delete
+                    a.task(href='/tasks/detail')= task
+                .buttons
+                    a.delete(href='#') Delete
+                    a.finished(href='#') Finished
     .circle 
     .circleSecond
     .circleThird
