@@ -8,8 +8,6 @@ app.set("view engine", "pug");
 
 const tasks = require('./routes/tasks.js')
 app.use('/tasks', tasks)
-// const taskId = require('./routes/taskId.js')
-// app.use('/tasks/:id', taskId)
 
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: false }));
@@ -34,114 +32,53 @@ app.route('/create')
             datetime: "required",
         });
 
-    v.check().then((matched) => {
-        if (!matched) {
-            res.status(422).render("create", { error: v.errors.title.message });
-            // res.status(422).send(v.errors);
-        } else {
-            fs.readFile("./data/tasks.json", function (err, data) {
-                if (err) throw err;
-
-                const tasks = JSON.parse(data);
-
-                tasks.push({
-                    id: id(),
-                    title: title,
-                    datetime: datetime,
-                    description: description,
-                });
-
-                fs.writeFile("./data/tasks.json", JSON.stringify(tasks), (err) => {
+        v.check().then((matched) => {
+            if (!matched) {
+                // for (let key in errors) {
+                //     console.log(key, error[key]);
+                //   }
+                res.status(422).render("create", { error: v.errors.title.message });
+               
+                // res.status(422).send(v.errors);
+            } else {
+                fs.readFile("./data/tasks.json", function (err, data) {
                     if (err) throw err;
+                    console.log('2')
 
-                    res.render("create", { success: true });
+                    const tasks = JSON.parse(data);
+
+                    tasks.push({
+                        id: id(),
+                        title: title,
+                        datetime: datetime,
+                        description: description,
+                    });
+                    fs.writeFile("./data/tasks.json", JSON.stringify(tasks), (err) => {
+                        if (err) throw err;
+
+                        res.render("create", { success: true });
+                    });
                 });
-            });
-        }
-    });
-});
-
-// app.get("/tasks", (req, res) => {
-//     fs.readFile("./data/tasks.json", (err, data) => {
-//         if (err) throw err;
-
-//         const tasks = JSON.parse(data);
-
-//         let task = tasks.filter((task) => !task.saved);
-
-//         res.render("tasks", { tasks: task });
-//     });
-// });
-
-// app.get("/tasks/:id", (req, res) => {
-//     const id = req.params.id;
-
-//     fs.readFile("./data/tasks.json", (err, data) => {
-//         if (err) throw err;
-
-//         const tasks = JSON.parse(data);
-
-//         const task = tasks.filter((task) => task.id == id)[0];
-
-//         res.render("detail", { task: task });
-//     });
-// });
-
-// app.delete('/tasks/:id/delete', function(req, res) {
-
-//     const id = req.params.id
-//     const tasks = JSON.parse(data)
-//     const index = tasks.findIndex((e) => e.id == id)
-//     tasks.splice(index, 1)
-
-//  fs.writeFile('./data/tasks.json', JSON.stringify(tasks), (err) => {
-//    if (err) throw err
-
-//     res.render('tasks', { tasks: tasks})
-//  })
-
-// })
-
-//archive
-
-app.get("/tasks/:id/saved", function (req, res) {
-    fs.readFile("./data/tasks.json", (err, data) => {
-        if (err) throw err;
-
-        const id = req.params.id;
-        const tasks = JSON.parse(data);
-        let index = tasks.findIndex((e) => e.id == id);
-        tasks[index].saved = true;
-        let savedTasks = [];
-        savedTasks = tasks.filter((task) => task.saved === true);
-        res.render("saved", { tasks: savedTasks });
-
-        fs.writeFile("./data/tasks.json", JSON.stringify(tasks), (err) => {
-            if (err) throw err;
-
-            res.render("saved", { tasks: savedTasks });
+            }
         });
     });
-});
 
-app.get("/tasks/:id/unsave", function (req, res) {
-    const id = req.params.id;
-
+app.get('/tasks/:id/delete', function (req, res) {
     fs.readFile("./data/tasks.json", function (err, data) {
         if (err) throw err;
+        const id = req.params.id
+        const tasks = JSON.parse(data)
+        const index = tasks.findIndex((e) => e.id == id)
+        tasks.splice(index, 1)
 
-        const tasks = JSON.parse(data);
-        let index = tasks.findIndex((e) => e.id == id);
-        tasks[index].saved = false;
-        let unsavedTasks = [];
-        unsavedTasks = tasks.filter((task) => task.saved === false);
+        fs.writeFile('./data/tasks.json', JSON.stringify(tasks), (err) => {
+            if (err) throw err
 
-    fs.writeFile("./data/tasks.json", JSON.stringify(tasks), (err) => {
-         if (err) throw err;
+            res.redirect('/tasks')
 
-         res.render("tasks", { tasks: unsavedTasks });
-        });
-    });
+        })
+
+    })
 });
 
 app.get("/saved", (req, res) => {
@@ -152,7 +89,7 @@ app.get("/saved", (req, res) => {
         let savedTasks = [];
         savedTasks = tasks.filter((task) => task.saved === true);
 
-            res.render("saved", { tasks: savedTasks });
+        res.render("saved", { tasks: savedTasks });
     });
 });
 
