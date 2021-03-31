@@ -6,6 +6,11 @@ const { Validator } = require("node-input-validator");
 
 app.set("view engine", "pug");
 
+const tasks = require('./routes/tasks.js')
+app.use('/tasks', tasks)
+// const taskId = require('./routes/taskId.js')
+// app.use('/tasks/:id', taskId)
+
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
@@ -13,21 +18,21 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
-app.get("/create", (req, res) => {
-    res.render("create");
-});
+app.route('/create')
+    .get((req, res) => {
+        res.render("create");
+    })
+    .post((req, res) => {
+        const title = req.body.title;
+        const description = req.body.description;
+        const datetime = req.body.datetime;
 
-app.post("/create", (req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
-    const datetime = req.body.datetime;
-
-    //input validation with library NIV
-    const v = new Validator(req.body, {
-        title: "required|minLength:5",
-        description: "maxLength:100",
-        datetime: "required",
-    });
+        //input validation with library NIV
+        const v = new Validator(req.body, {
+            title: "required|minLength:5",
+            description: "maxLength:100",
+            datetime: "required",
+        });
 
     v.check().then((matched) => {
         if (!matched) {
@@ -56,31 +61,31 @@ app.post("/create", (req, res) => {
     });
 });
 
-app.get("/tasks", (req, res) => {
-    fs.readFile("./data/tasks.json", (err, data) => {
-        if (err) throw err;
+// app.get("/tasks", (req, res) => {
+//     fs.readFile("./data/tasks.json", (err, data) => {
+//         if (err) throw err;
 
-        const tasks = JSON.parse(data);
+//         const tasks = JSON.parse(data);
 
-        let task = tasks.filter((task) => !task.saved);
+//         let task = tasks.filter((task) => !task.saved);
 
-        res.render("tasks", { tasks: task });
-    });
-});
+//         res.render("tasks", { tasks: task });
+//     });
+// });
 
-app.get("/tasks/:id", (req, res) => {
-    const id = req.params.id;
+// app.get("/tasks/:id", (req, res) => {
+//     const id = req.params.id;
 
-    fs.readFile("./data/tasks.json", (err, data) => {
-        if (err) throw err;
+//     fs.readFile("./data/tasks.json", (err, data) => {
+//         if (err) throw err;
 
-        const tasks = JSON.parse(data);
+//         const tasks = JSON.parse(data);
 
-        const task = tasks.filter((task) => task.id == id)[0];
+//         const task = tasks.filter((task) => task.id == id)[0];
 
-        res.render("detail", { task: task });
-    });
-});
+//         res.render("detail", { task: task });
+//     });
+// });
 
 // app.delete('/tasks/:id/delete', function(req, res) {
 
@@ -147,12 +152,18 @@ app.get("/saved", (req, res) => {
         let savedTasks = [];
         savedTasks = tasks.filter((task) => task.saved === true);
 
-        fs.writeFile("./data/tasks.json", JSON.stringify(tasks), (err) => {
-            if (err) throw err;
             res.render("saved", { tasks: savedTasks });
-        });
     });
 });
+
+app.get("/api/v1/tasks", (req, res) => {
+    fs.readFile("./data/tasks.json", (err, data) => {
+        if (err) throw err;
+
+        const tasks = JSON.parse(data);
+        res.json(tasks)
+    });
+})
 
 app.listen(8200, (err) => {
     if (err) console.log(err);
