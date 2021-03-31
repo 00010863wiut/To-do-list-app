@@ -8,9 +8,9 @@ block content
             .task_wrapper
                 .taskTitle
                     input.checkbox(type="checkbox" value="1" name="checkbox")
-                    a.task(href=`/tasks/${tasks.id}`)= task.title
+                    a.task(href='/tasks/' + task.id)= task.title
                 .buttons
-                    a.delete(href='#') Delete
+                    a(href="/tasks/" + task.id + "/delete").delete Delete
                     a.finished(href='#') Finished
     .circle 
     .circleSecond

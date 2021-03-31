@@ -57,31 +57,55 @@ app.post('/create', (req, res) => {
     });
 })
 
-const tasks = ['task', 'task2', 'task3']
-
-app.get('/tasks', (req, res) =>{
+app.get('/tasks', (req, res) => {
 
     fs.readFile('./data/tasks.json', (err, data) => {
         if (err) throw err
 
         const tasks = JSON.parse(data)
 
-         res.render('tasks', { tasks: tasks })   
+        res.render('tasks', { tasks: tasks })
     })
 
 })
 
-app.get('/tasks/detail', (req, res) =>{
-    res.render('detail')
+app.get('/tasks/:id', (req, res) => {
+    const id = req.params.id
+
+    fs.readFile('./data/tasks.json', (err, data) => {
+        if (err) throw err
+
+        const tasks = JSON.parse(data)
+
+        const task = tasks.filter(task => task.id == id)[0]
+
+        res.render('detail', { task: task })
+    })
 })
 
-app.listen(2000, err => {
+// app.delete('/tasks/:id/delete', function (req, res) {
+
+//      const id = parseInt(req.params.id)
+
+//  fs.writeFile('./data/tasks.json', JSON.stringify(tasks), (err, data) => {
+//    if (err) throw err
+
+//     const tasks = JSON.parse(data)
+//     const index = tasks.findIndex((e) => e.id == id)
+//     tasks.splice(index, 1)
+//     res.render('tasks', { tasks: tasks})
+//  })
+
+// })
+
+app.listen(8200, err => {
     if (err) console.log(err)
 
-    console.log('Server is running on port 1313..')
+    console.log('Server is running on port 8200..')
 })
 
 
 function id() {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
+
