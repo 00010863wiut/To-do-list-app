@@ -5,14 +5,13 @@ block content
     .circleSecond
     .circleThird
     .containerAllTasks
-        h1 All tasks 
+        h1 Favourites
 
         each task in tasks 
             .task_wrapper
                 .taskTitle
-                    input.checkbox(type="checkbox" value="1" name="checkbox")
                     a.task(href='/tasks/' + task.id)= task.title
                 .buttons
                     a(href="/tasks/" + task.id + "/delete").delete Delete
-                    a.save(href="/tasks/" + task.id + "/saved") Save to Favourite
+                    a.unsave(href="/tasks/" + task.id + "/unsave") Back to list
 

@@ -73,6 +73,10 @@ a {
   border: 1px solid #2cb67d;
 }
 
+.nav:active {
+  border: 1px solid #2cb67d;
+}
+
 /* Home page style */
 
 .container_main {
@@ -248,7 +252,7 @@ input[type="checkbox"]:checked + a.task {
 }
 
 .delete,
-.finished {
+.save, .unsave {
   background-color: #7f5af0;
   color: #fffffe;
   padding: 0rem 2rem;
@@ -264,29 +268,34 @@ input[type="checkbox"]:checked + a.task {
 }
 
 .circle {
+  position: fixed;
   background-color: #7f5af0;
   width: 10vw;
   height: 10vw;
-  margin-top: -13vw;
+  margin-top: 23vw;
   margin-left: 6vw;
   z-index: -1;
   border-radius: 50%;
 }
 
 .circleSecond {
+  position: fixed;
   background-color: #2cb67d;
   border-radius: 50%;
-  margin-top: -600px;
+  margin-top: 400px;
+  z-index: -1;
   margin-left: 65vw;
   width: 3.5vw;
   height: 3.5vw;
 }
 
 .circleThird {
+  position: fixed;
   background-color: #2cb67d;
   border-radius: 50%;
-  margin-top: 245px;
-  margin-left: 45vw;
+  z-index: -1;
+  margin-top: 165px;
+  margin-left: 35vw;
   width: 5vw;
   height: 5vw;
 }
@@ -348,16 +357,16 @@ input[type="checkbox"]:checked + a.task {
 }
 
 .circle.detail {
-  margin-left: 630px;
-  margin-top: -650px;
+  margin-left: 530px;
+  margin-top: 80px;
   width: 150px;
   height: 150px;
 }
 
 .circle.detailone {
    background-color: #2cb67d;
-   margin-left: 1200px;
-  margin-top: 250px;
+   margin-left: 1300px;
+  margin-top: 450px;
   width: 100px;
   height: 100px;
 }
