@@ -6,6 +6,9 @@ const { Validator } = require("node-input-validator");
 
 app.set("view engine", "pug");
 
+methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+
 const tasks = require('./routes/tasks.js')
 app.use('/tasks', tasks)
 
@@ -34,11 +37,10 @@ app.route('/create')
 
         v.check().then((matched) => {
             if (!matched) {
-                // for (let key in errors) {
-                //     console.log(key, error[key]);
-                //   }
-                res.status(422).render("create", { error: v.errors.title.message });
-               
+                for (let key in v.errors) {
+                    // console.log(key, error[key]);
+                res.status(422).render("create", { error: v.errors[key].message });
+               }
                 // res.status(422).send(v.errors);
             } else {
                 fs.readFile("./data/tasks.json", function (err, data) {
@@ -80,6 +82,41 @@ app.get('/tasks/:id/delete', function (req, res) {
 
     })
 });
+
+app.get('/tasks/:id/edit', (req, res) => {
+    const id = req.params.id
+    fs.readFile('./data/tasks.json', (err, data) => {
+        if (err) throw err
+        
+        const tasks = JSON.parse(data)
+        const task = tasks.filter(task => task.id == id)[0]
+        res.render('edit', {task: task})
+    })
+})
+
+app.post('/tasks/:id/edit', (req, res) => {
+    const id = req.params.id
+
+    const title = req.body.title
+    const datetime = req.body.datetime
+    const description = req.body.description
+
+    fs.readFile('./data/tasks.json', (err, data) => {
+        if (err) throw err
+
+        const tasks = JSON.parse(data)
+        const index = tasks.findIndex(task => task.id == id)
+
+        tasks[index].title = title
+        tasks[index].datetime = datetime
+        tasks[index].description = description
+
+        fs.writeFile('./data/tasks.json', JSON.stringify(tasks), err => {
+         if (err) throw err
+        })
+        res.redirect('/tasks')
+    })
+})
 
 app.get("/saved", (req, res) => {
     fs.readFile("./data/tasks.json", (err, data) => {

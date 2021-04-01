@@ -1,0 +1,17 @@
+extends layout.pug 
+
+block content 
+    .containerForm
+        h1 Create task 
+        
+        form.form(action="/tasks/" + task.id + '/edit' method="POST")
+            label Title
+            input.input(type="text" name="title" value=task.title)
+
+            label Due date
+            input.input(type="datetime-local" name="datetime" value=task.datetime)
+
+            label Description 
+            textarea.input(type="text" name="description", cols="30", rows="10")= task.description
+
+            button.btn Update a task

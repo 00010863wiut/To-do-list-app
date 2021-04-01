@@ -250,7 +250,7 @@ input[type="checkbox"]:checked + a.task {
 }
 
 .delete,
-.save, .unsave {
+.save, .unsave, .edit {
   background-color: #7f5af0;
   color: #fffffe;
   padding: 0rem 2rem;
