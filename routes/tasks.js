@@ -38,7 +38,6 @@ router.get("/:id/saved", function (req, res) {
         tasks[index].saved = true;
         let savedTasks = [];
         savedTasks = tasks.filter((task) => task.saved === true);
-        res.render("saved", { tasks: savedTasks });
 
         fs.writeFile("./data/tasks.json", JSON.stringify(tasks), (err) => {
             if (err) throw err;

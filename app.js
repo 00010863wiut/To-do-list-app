@@ -6,9 +6,6 @@ const { Validator } = require("node-input-validator");
 
 app.set("view engine", "pug");
 
-methodOverride = require("method-override");
-app.use(methodOverride("_method"));
-
 const tasks = require('./routes/tasks.js')
 app.use('/tasks', tasks)
 
@@ -45,7 +42,6 @@ app.route('/create')
             } else {
                 fs.readFile("./data/tasks.json", function (err, data) {
                     if (err) throw err;
-                    console.log('2')
 
                     const tasks = JSON.parse(data);
 
@@ -139,10 +135,10 @@ app.get("/api/v1/tasks", (req, res) => {
     });
 })
 
-app.listen(8200, (err) => {
+app.listen(8100, (err) => {
     if (err) console.log(err);
 
-    console.log("Server is running on port 8200..");
+    console.log("Server is running on port 8100..");
 });
 
 function id() {
