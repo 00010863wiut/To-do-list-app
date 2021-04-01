@@ -177,9 +177,39 @@ a {
   transition: 0.3s;
 }
 
-.btn:hover {
+.btn:hover, .save.create:hover {
   background-color: inherit;
   border: 1px solid #7f5af0;
+}
+
+.unsave:hover {
+  background-color: inherit;
+  border: 1px solid #7f5af0;
+}
+
+.save:hover {
+  background-color: inherit;
+  border: 1px solid #7f5af0;
+}
+
+.edit:hover {
+  background-color: inherit;
+  border: 1px solid #7f5af0;
+}
+
+.delete:hover {
+  background-color: inherit;
+  border: 1px solid #7f5af0;
+}
+
+.btn.tasks {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.save.create{
+  padding: 1.5rem;
 }
 
 .error {
@@ -229,6 +259,7 @@ input[type="checkbox"]:checked + a.task {
 .task {
   color: #fffffe;
   font-size: 1.4rem;
+  line-height: 1.5;
 }
 
 .task:hover {
@@ -248,9 +279,10 @@ input[type="checkbox"]:checked + a.task {
   width: 2rem;
   margin: 2rem;
 }
-
-.delete,
-.save, .unsave, .edit {
+.delete.detail, .edit.detail {
+  padding: 1rem 2rem;
+}
+.delete, .save, .unsave, .edit {
   display: flex;
   justify-content: center;
   background-color: #7f5af0;
@@ -302,6 +334,7 @@ input[type="checkbox"]:checked + a.task {
 
 /*details page styling*/
 .containerDetail {
+  width: 30vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -339,24 +372,33 @@ input[type="checkbox"]:checked + a.task {
   margin: 3rem 2rem;
 }
 
+.containerDetail h1, .title {
+  color: #fffffe;
+  margin-top: 2rem;
+  text-align: center;
+}
+
 .detail {
   display: flex;
   justify-content: center;
 }
 
 .circle.detail {
-  margin-left: 530px;
+  margin-left: 1200px;
   margin-top: 80px;
   width: 150px;
   height: 150px;
 }
 
-.circle.detailone {
-   background-color: #2cb67d;
-   margin-left: 1300px;
-  margin-top: 450px;
-  width: 100px;
-  height: 100px;
+.circleSecond.detailone {
+  margin-top: 500px;
+  margin-left: 1220px;
+
+}
+
+.circleThird.detailtwo {
+  margin-left: 600px;
+
 }
 
 @media (max-width: 480px) {

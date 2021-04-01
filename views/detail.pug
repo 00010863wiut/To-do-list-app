@@ -2,10 +2,15 @@ extends layout
 
 block content 
     .circle.detail
-    .circle.detailone
+    .circleSecond.detailone
+    .circleThird.detailtwo
 
     .detail
         .containerDetail
             h1.title #{ task.title }
             h3.datetime Due #{ task.datetime }
             p.description #{ task.description }
+            .buttons
+                a.delete.detail(href="/tasks/" + task.id + "/delete") Delete
+                a.edit.detail(href="/tasks/" + task.id + "/edit") Edit
+

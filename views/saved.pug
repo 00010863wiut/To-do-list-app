@@ -12,6 +12,7 @@ block content
                 .taskTitle
                     a.task(href='/tasks/' + task.id)= task.title
                 .buttons
-                    a(href="/tasks/" + task.id + "/delete").delete Delete
+                    a.delete(href="/tasks/" + task.id + "/delete") Delete
                     a.unsave(href="/tasks/" + task.id + "/unsave") Back to list
+                    a.edit(href="/tasks/" + task.id + "/edit") Edit
 
