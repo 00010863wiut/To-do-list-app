@@ -6,20 +6,20 @@ To run the app, follow the guideline below:
 
 1. Clone the repository https://github.com/00010863wiut/To-do-list-app.git
 
-bash
+```bash
 git clone 
-
+```
 2. Install dependencies
 
-bash
+```bash
 cd [project folder]
 npm install
-
+```
 3. Run the application
 
-bash
+```bash
 node app
-
+```
 ### Web application dependencies:
 
 - express.js
