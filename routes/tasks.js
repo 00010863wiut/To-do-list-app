@@ -67,7 +67,7 @@ router.get("/:id/unsave", function (req, res) {
     });
 });
 
-route.get('/:id/delete', function (req, res) {
+router.get('/:id/delete', function (req, res) {
     fs.readFile("./data/tasks.json", function (err, data) {
         if (err) throw err;
         const id = req.params.id
@@ -84,42 +84,6 @@ route.get('/:id/delete', function (req, res) {
 
     })
 });
-
-route.get('/:id/edit', (req, res) => {
-    const id = req.params.id
-    fs.readFile('./data/tasks.json', (err, data) => {
-        if (err) throw err
-        
-        const tasks = JSON.parse(data)
-        const task = tasks.filter(task => task.id == id)[0]
-        res.render('edit', {task: task})
-    })
-})
-
-app.post('/:id/edit', (req, res) => {
-    const id = req.params.id
-
-    const title = req.body.title
-    const datetime = req.body.datetime
-    const description = req.body.description
-
-    fs.readFile('./data/tasks.json', (err, data) => {
-        if (err) throw err
-
-        const tasks = JSON.parse(data)
-        const index = tasks.findIndex(task => task.id == id)
-
-        tasks[index].title = title
-        tasks[index].datetime = datetime
-        tasks[index].description = description
-
-        fs.writeFile('./data/tasks.json', JSON.stringify(tasks), err => {
-         if (err) throw err
-        })
-        res.redirect('/tasks')
-    })
-})
-
 
 module.exports = router
 

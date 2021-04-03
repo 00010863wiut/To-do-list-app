@@ -39,8 +39,8 @@ app.route('/create')
             if (!matched) {
                 for (let key in v.errors) {
                     // console.log(key, error[key]);
-                res.status(422).render("create", { error: v.errors[key].message });
-               }
+                    res.status(422).render("create", { error: v.errors[key].message });
+                }
                 // res.status(422).send(v.errors);
             } else {
                 fs.readFile("./data/tasks.json", function (err, data) {
@@ -76,9 +76,46 @@ app.get("/saved", (req, res) => {
     });
 });
 
+app.route('/tasks/:id/edit')
+    .get((req, res) => {
+        const id = req.params.id
+        fs.readFile('./data/tasks.json', (err, data) => {
+            if (err) throw err
+
+            const tasks = JSON.parse(data)
+            const task = tasks.filter(task => task.id == id)[0]
+            res.render('edit', { task: task })
+        })
+    })
+
+    .post((req, res) => {
+        const id = req.params.id
+
+        const title = req.body.title
+        const datetime = req.body.datetime
+        const description = req.body.description
+
+        fs.readFile('./data/tasks.json', (err, data) => {
+            if (err) throw err
+
+            const tasks = JSON.parse(data)
+            const index = tasks.findIndex(task => task.id == id)
+
+            tasks[index].title = title
+            tasks[index].datetime = datetime
+            tasks[index].description = description
+
+            fs.writeFile('./data/tasks.json', JSON.stringify(tasks), err => {
+                if (err) throw err
+            })
+            res.redirect('/tasks')
+        })
+    })
+
+
 var listener = app.listen(process.env.PORT, function () {
     console.log('Your app is listening on port ' + listener.address().port);
-  });
+});
 
 function id() {
     return "_" + Math.random().toString(36).substr(2, 9);
