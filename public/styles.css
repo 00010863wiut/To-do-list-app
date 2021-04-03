@@ -73,8 +73,6 @@ a {
   border-radius: 14px;
 }
 
-
-
 /* Home page style */
 
 .container_main {
@@ -125,7 +123,6 @@ a {
 }
 
 /*mobile responsiveness*/
-  
 
 /* create page style*/
 
@@ -177,7 +174,8 @@ a {
   transition: 0.3s;
 }
 
-.btn:hover, .save.create:hover {
+.btn:hover,
+.save.create:hover {
   background-color: inherit;
   border: 1px solid #7f5af0;
 }
@@ -208,7 +206,7 @@ a {
   padding: 1rem;
 }
 
-.save.create{
+.save.create {
   padding: 1.5rem;
 }
 
@@ -279,10 +277,14 @@ input[type="checkbox"]:checked + a.task {
   width: 2rem;
   margin: 2rem;
 }
-.delete.detail, .edit.detail {
+.delete.detail,
+.edit.detail {
   padding: 1rem 2rem;
 }
-.delete, .save, .unsave, .edit {
+.delete,
+.save,
+.unsave,
+.edit {
   display: flex;
   justify-content: center;
   background-color: #7f5af0;
@@ -368,11 +370,13 @@ input[type="checkbox"]:checked + a.task {
   font-size: 1rem;
 }
 
-.containerDetail h1, .description {
+.containerDetail h1,
+.description {
   margin: 3rem 2rem;
 }
 
-.containerDetail h1, .title {
+.containerDetail h1,
+.title {
   color: #fffffe;
   margin-top: 2rem;
   text-align: center;
@@ -393,21 +397,16 @@ input[type="checkbox"]:checked + a.task {
 .circleSecond.detailone {
   margin-top: 500px;
   margin-left: 1220px;
-
 }
 
 .circleThird.detailtwo {
   margin-left: 600px;
-
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .container_main {
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-  }
-  .expansion-alids-init{
-    background-color: #fffffe;
   }
 }
