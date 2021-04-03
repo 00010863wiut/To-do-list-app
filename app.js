@@ -9,6 +9,9 @@ app.set("view engine", "pug");
 const tasks = require('./routes/tasks.js')
 app.use('/tasks', tasks)
 
+const api = require('./routes/api.js')
+app.use('/api', api)
+
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
@@ -61,59 +64,6 @@ app.route('/create')
         });
     });
 
-app.get('/tasks/:id/delete', function (req, res) {
-    fs.readFile("./data/tasks.json", function (err, data) {
-        if (err) throw err;
-        const id = req.params.id
-        const tasks = JSON.parse(data)
-        const index = tasks.findIndex((e) => e.id == id)
-        tasks.splice(index, 1)
-
-        fs.writeFile('./data/tasks.json', JSON.stringify(tasks), (err) => {
-            if (err) throw err
-
-            res.redirect('/tasks')
-
-        })
-
-    })
-});
-
-app.get('/tasks/:id/edit', (req, res) => {
-    const id = req.params.id
-    fs.readFile('./data/tasks.json', (err, data) => {
-        if (err) throw err
-        
-        const tasks = JSON.parse(data)
-        const task = tasks.filter(task => task.id == id)[0]
-        res.render('edit', {task: task})
-    })
-})
-
-app.post('/tasks/:id/edit', (req, res) => {
-    const id = req.params.id
-
-    const title = req.body.title
-    const datetime = req.body.datetime
-    const description = req.body.description
-
-    fs.readFile('./data/tasks.json', (err, data) => {
-        if (err) throw err
-
-        const tasks = JSON.parse(data)
-        const index = tasks.findIndex(task => task.id == id)
-
-        tasks[index].title = title
-        tasks[index].datetime = datetime
-        tasks[index].description = description
-
-        fs.writeFile('./data/tasks.json', JSON.stringify(tasks), err => {
-         if (err) throw err
-        })
-        res.redirect('/tasks')
-    })
-})
-
 app.get("/saved", (req, res) => {
     fs.readFile("./data/tasks.json", (err, data) => {
         if (err) throw err;
@@ -126,20 +76,9 @@ app.get("/saved", (req, res) => {
     });
 });
 
-app.get("/api/v1/tasks", (req, res) => {
-    fs.readFile("./data/tasks.json", (err, data) => {
-        if (err) throw err;
-
-        const tasks = JSON.parse(data);
-        res.json(tasks)
-    });
-})
-
-app.listen(8100, (err) => {
-    if (err) console.log(err);
-
-    console.log("Server is running on port 8100..");
-});
+var listener = app.listen(process.env.PORT, function () {
+    console.log('Your app is listening on port ' + listener.address().port);
+  });
 
 function id() {
     return "_" + Math.random().toString(36).substr(2, 9);
