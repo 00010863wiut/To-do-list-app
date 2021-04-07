@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const fs = require("fs");
+const TasksRepo = require("../models/tasks_repo.js");
+const tasksRepo = new TasksRepo();
+
 
 router.get('/', (req, res) => {
     fs.readFile("./data/tasks.json", (err, data) => {
@@ -15,18 +18,12 @@ router.get('/', (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-        const id = req.params.id;
-    
-        fs.readFile("./data/tasks.json", (err, data) => {
-            if (err) throw err;
-    
-            const tasks = JSON.parse(data);
-    
-            const task = tasks.filter((task) => task.id == id)[0];
-    
-            res.render("detail", { task: task });
+    const id = req.params.id
+
+	const task = tasksRepo.getById(id)
+
+	res.render('detail', {task: task})	
         });
-})
 
 router.get("/:id/saved", function (req, res) {
     fs.readFile("./data/tasks.json", (err, data) => {

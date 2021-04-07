@@ -1,0 +1,16 @@
+extends layout 
+
+block content
+    #tasks(style="color: #ffffff")
+    script. 
+        fetch('/api/v1/tasks')
+            .then(res => res.json())
+            .then(data => {
+                let output = ""
+                data.forEach(data => {
+                    output += data.title
+                    output += "</br>"
+                })
+                const fetch = document.getElementById('tasks')
+                fetch.innerHTML = output
+            })

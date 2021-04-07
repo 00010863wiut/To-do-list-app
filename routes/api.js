@@ -12,4 +12,8 @@ router.get('/v1/tasks', (req, res) => {
     });
 });
 
+router.get('/v1/tasks/fetch', (req, res) => {
+res.render('fetch')
+    });
+
 module.exports = router
