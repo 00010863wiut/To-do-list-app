@@ -18,21 +18,16 @@ router.get('/', (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-    const id = req.params.id
-     fs.readFile("./data/tasks.json", (err, data) => {
-        if (err) throw err;
-
-        const tasks = JSON.parse(data);
-
-        let task = tasks.filter((task) => !task.saved);
-
-        res.render("tasks", { tasks: task });
+    const id = req.params.id;
+    fs.readFile("./data/tasks.json", (err, data) => {
+      if (err) throw err;
+  
+      const tasks = JSON.parse(data);
+      const task = tasks.filter(task => task.id === id)[0];
+  
+      res.render("detail", { task: task });
     });
-
-	const task = tasks.filter(task => task.id === id)[0]
-
-	res.render('detail', {task: task})	
-        });
+  });
 
 router.get("/:id/saved", function (req, res) {
     fs.readFile("./data/tasks.json", (err, data) => {
