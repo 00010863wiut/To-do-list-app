@@ -8,7 +8,7 @@ block content
             .then(data => {
                 let output = ""
                 data.forEach(data => {
-                    output += data.title
+                    output +=  `<div class="task_wrapper"><div class="taskTitle"><input class="checkbox" type="checkbox" value="1" name="checkbox"><a class="task" id="smth" href="/tasks/${data.id}">${data.title}</a></div><div class="buttons"><a class="delete" href="/tasks/${data.id}/delete">Delete</a><a class="save" href="/tasks/${data.id}/saved">Save</a><a class="edit" href="/tasks/${data.id}/edit">Edit</a></div></div>`
                     output += "</br>"
                 })
                 const fetch = document.getElementById('tasks')
